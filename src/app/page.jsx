@@ -8,11 +8,24 @@ const examples = [
     category: 'Sending Emails',
     items: [
       {
+        title: 'Regular Email',
+        description: 'Send a regular email, with some options',
+        href: '/regular-email',
+        type: 'page',
+      },
+      {
+        title: 'Billing Failure',
+        description: 'Send a billing failure email to a customer',
+        href: '/billing-failure',
+        type: 'page',
+      },
+      {
         title: 'Basic Send',
         description: 'Send a simple email with HTML content',
         href: '/send-email',
         type: 'page',
       },
+
       {
         title: 'With Attachments',
         description: 'Send emails with file attachments',
