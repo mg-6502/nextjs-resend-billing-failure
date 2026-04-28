@@ -13,13 +13,15 @@ import { ResultDisplay } from '@/components/result-display';
 
 export default function SendEmailPage() {
   const [to, setTo] = useState('delivered@resend.dev');
+  const [from] = useState(process.env.NEXT_PUBLIC_EMAIL_FROM);
   const [subject, setSubject] = useState('Hello from Resend!');
   const [message, setMessage] = useState(
     'This is a test email sent from the Resend examples app.',
   );
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -33,6 +35,7 @@ export default function SendEmailPage() {
       });
 
       const data = await response.json();
+      
 
       if (!response.ok) {
         setResult({ error: data.error || 'Failed to send email' });
@@ -46,12 +49,12 @@ export default function SendEmailPage() {
     }
   };
 
-  const exampleCode = `import { Resend } from 'resend';
+const exampleCode = `import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const { data, error } = await resend.emails.send({
-  from: 'Acme <onboarding@resend.dev>',
+  from: ['${from}'],
   to: ['${to}'],
   subject: '${subject}',
   html: '<p>${message}</p>',

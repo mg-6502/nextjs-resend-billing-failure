@@ -20,7 +20,7 @@ import { resend } from '@/lib/resend';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, subject, message, useReactEmail, useBillingFailure, name, preventThreading } =
+    const { to, from, subject, message, useReactEmail, useBillingFailure, name, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -32,7 +32,7 @@ export async function POST(request) {
 
     // Build the email options
     const emailOptions = {
-      from: process.env.EMAIL_FROM || 'Acme <onboarding@resend.dev>',
+      from: process.env.EMAIL_FROM,
       to: [to],
       subject: subject,
     };
