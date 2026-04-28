@@ -25,7 +25,7 @@ export function PageHeader({ title, description, sourcePath }) {
 
       {sourcePath && (
         <a
-          href={`https://github.com/resend/resend-examples/blob/main/nextjs-resend-examples/javascript/${sourcePath}`}
+          href={`https://github.com/mg-6502/nextjs-resend-billing-failure/${sourcePath}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] mt-2 inline-block"

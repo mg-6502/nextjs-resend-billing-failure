@@ -14,12 +14,13 @@
 import { randomUUID } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { WelcomeEmail } from '@/emails/welcome';
+import { BillingFailure } from '@/emails/billing-failure';
 import { resend } from '@/lib/resend';
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, subject, message, useReactEmail, name, preventThreading } =
+    const { to, from, subject, message, orgname, useReactEmail, useBillingFailure, name, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -31,13 +32,20 @@ export async function POST(request) {
 
     // Build the email options
     const emailOptions = {
-      from: process.env.EMAIL_FROM || 'Acme <onboarding@resend.dev>',
+      from: process.env.EMAIL_FROM,
       to: [to],
       subject: subject,
     };
 
-    // Option 1: Use React Email template
-    if (useReactEmail && name) {
+	// Option 1: Use Billing Failure React Email template
+	if (useBillingFailure && name) {
+      emailOptions.react = BillingFailure({
+        name,
+        orgname: process.env.ORG_NAME,
+        actionUrl: 'https://example.com/dashboard',
+      });
+    // Original Option 1: Use React Email template
+    } else if (useReactEmail && name) {
       emailOptions.react = WelcomeEmail({
         name,
         actionUrl: 'https://example.com/dashboard',
