@@ -22,7 +22,7 @@ export default function BillingFailurePage() {
         body: JSON.stringify({
           to,
           subject: `Uh oh, ${name}! There's a Billing Problem!`,
-          useReactEmail: true,
+          useBillingFailure: true,
           name,
         }),
       });

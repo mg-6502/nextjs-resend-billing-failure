@@ -141,7 +141,7 @@ export default function HomePage() {
       <div className="mb-12">
         <h1 className="text-4xl font-bold mb-4">Resend Examples</h1>
         <p className="text-lg text-[var(--muted-foreground)]">
-          Comprehensive examples for sending emails with{' '}
+          Limited examples for sending emails with{' '}
           <a
             href="https://resend.com"
             target="_blank"
@@ -150,7 +150,7 @@ export default function HomePage() {
           >
             Resend
           </a>{' '}
-          and Next.js 16. Each example includes commented code to help you
+          and Next.js. Each example includes commented code to help you
           learn.
         </p>
       </div>
@@ -222,7 +222,7 @@ export default function HomePage() {
         <p>
           View the source on{' '}
           <a
-            href="https://github.com/resend/resend-examples"
+            href="https://github.com/mg-6502/nextjs-resend-billing-failure"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:no-underline"
