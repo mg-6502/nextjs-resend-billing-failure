@@ -1,7 +1,7 @@
 {
-  "name": "nextjs-resend-examples-javascript",
+  "name": "nextjs-resend-billing-failure",
   "version": "1.0.0",
-  "description": "Comprehensive Resend examples with Next.js 16 and JavaScript",
+  "description": "Two Resend Examples with NextJS and React Email",
   "private": true,
   "scripts": {
     "dev": "next dev",
