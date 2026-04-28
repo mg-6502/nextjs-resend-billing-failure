@@ -7,12 +7,12 @@ const examples = [
   {
     category: 'Sending Emails',
     items: [
-      {
+/*      {
         title: 'Regular Email',
         description: 'Send a regular email, with some options',
         href: '/regular-email',
         type: 'page',
-      },
+      },*/
       {
         title: 'Billing Failure',
         description: 'Send a billing failure email to a customer',
