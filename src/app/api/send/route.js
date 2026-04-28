@@ -20,7 +20,7 @@ import { resend } from '@/lib/resend';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, from, subject, message, useReactEmail, useBillingFailure, name, preventThreading } =
+    const { to, from, subject, message, orgname, useReactEmail, useBillingFailure, name, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -41,6 +41,7 @@ export async function POST(request) {
 	if (useBillingFailure && name) {
       emailOptions.react = BillingFailure({
         name,
+        orgname: process.env.ORG_NAME,
         actionUrl: 'https://example.com/dashboard',
       });
     // Original Option 1: Use React Email template
