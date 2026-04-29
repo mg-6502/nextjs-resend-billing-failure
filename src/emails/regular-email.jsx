@@ -28,12 +28,6 @@ export function RegularEmail({
   linkUrl,
   buttonText,
   buttonUrl,
-  attachments: [
-  	{
-  		filename: fileName,
-  		content: attachment,
-  	}
-  ]
 }) {
   return (
     <Html lang="en">
@@ -80,8 +74,8 @@ export function RegularEmail({
 RegularEmail.PreviewProps = {
   name: 'John Doe',
   orgname: 'Acme',
-  message: 'This is this email&apos;s sample body message.',
-  linkText: 'Here&apos;s a supplemental link.',
+  message: 'This is this email sample body message.',
+  linkText: 'Here is a supplemental link.',
   linkUrl: 'https://resend.com',
   buttonText: 'Click Here',
   buttonUrl: 'https://example.com/dashboard',

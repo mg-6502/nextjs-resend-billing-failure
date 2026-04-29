@@ -5,11 +5,17 @@ import Link from 'next/link';
  */
 const examples = [
   {
-    category: 'Sending Emails',
+    category: 'Send Emails',
     items: [
       {
+        title: 'Basic Send',
+        description: 'Send a simple email with HTML content',
+        href: '/send-email',
+        type: 'page',
+      },    
+      {
         title: 'Regular Email',
-        description: 'Send a regular email, with some options',
+        description: 'Send a regular email with several components',
         href: '/regular-email',
         type: 'page',
       },
@@ -17,111 +23,6 @@ const examples = [
         title: 'Billing Failure',
         description: 'Send a billing failure email to a customer',
         href: '/billing-failure',
-        type: 'page',
-      },
-      {
-        title: 'Basic Send',
-        description: 'Send a simple email with HTML content',
-        href: '/send-email',
-        type: 'page',
-      },
-
-      {
-        title: 'With Attachments',
-        description: 'Send emails with file attachments',
-        href: '/attachments',
-        type: 'page',
-      },
-      {
-        title: 'With CID Attachments',
-        description: 'Embed inline images using Content-ID',
-        href: '/cid-attachments',
-        type: 'page',
-      },
-      {
-        title: 'With Templates',
-        description: 'Use Resend hosted templates with variables',
-        href: '/templates',
-        type: 'page',
-      },
-      {
-        title: 'With React Email',
-        description: 'Build emails with React components',
-        href: '/react-email',
-        type: 'page',
-      },
-      {
-        title: 'Scheduled Send',
-        description: 'Schedule emails to send later',
-        href: '/scheduling',
-        type: 'page',
-      },
-    ],
-  },
-  {
-    category: 'Forms & Actions',
-    items: [
-      {
-        title: 'Contact Form',
-        description:
-          'Server Action with batch send (confirmation + notification)',
-        href: '/contact-form',
-        type: 'page',
-      },
-    ],
-  },
-  {
-    category: 'Receiving Emails',
-    items: [
-      {
-        title: 'Inbound Emails',
-        description: 'Receive and forward emails via webhooks',
-        href: '/inbound',
-        type: 'page',
-      },
-    ],
-  },
-  {
-    category: 'Subscription',
-    items: [
-      {
-        title: 'Double Opt-In',
-        description: 'GDPR-compliant subscription with email confirmation',
-        href: '/double-optin',
-        type: 'page',
-      },
-    ],
-  },
-  {
-    category: 'Management',
-    items: [
-      {
-        title: 'Audiences',
-        description: 'Manage contacts and segments',
-        href: '/audiences',
-        type: 'page',
-      },
-      {
-        title: 'Domains',
-        description: 'Create domains and view DNS records',
-        href: '/domains',
-        type: 'page',
-      },
-    ],
-  },
-  {
-    category: 'Advanced',
-    items: [
-      {
-        title: 'Better Auth',
-        description: 'Authentication with email verification',
-        href: '/better-auth',
-        type: 'page',
-      },
-      {
-        title: 'Prevent Gmail Threading',
-        description: 'Stop emails from grouping in Gmail',
-        href: '/prevent-threading',
         type: 'page',
       },
     ],
