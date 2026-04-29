@@ -29,7 +29,7 @@ export default function RegularEmailPage() {
   const readFile = (e) => {
 	const fileContent = fileReader.result;
 	console.log(fileContent);
-	const base64Content = Buffer.from(fileContent).toString('base64');
+	const attachment = Buffer.from(fileContent).toString('base64');
   };
   const chooseFile = (file) => {
 	const fileName = file.name;
@@ -59,8 +59,6 @@ export default function RegularEmailPage() {
           message,
           linkText,
           linkUrl,
-          fileName,
-          fileContent: base64Content,
           buttonText,
           buttonUrl,
         }),

@@ -20,7 +20,7 @@ import { resend } from '@/lib/resend';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, linkText, linkUrl, fileContent, fileName, useReactEmail, useBillingFailure, preventThreading } =
+    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, linkText, linkUrl, attachment, fileName, useReactEmail, useBillingFailure, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -31,12 +31,28 @@ export async function POST(request) {
     }
 
     // Build the email options
+    //Option A: Attachment is present, Else No attachment
+/*	if (attachment) {
+    const emailOptions = {
+      from: process.env.EMAIL_FROM,
+      to: [to],
+      subject: subject,
+      attachments: [
+          {
+            filename: 'attachment.txt',
+            content: attachment,
+          },
+        ],
+    };
+	} else {}*/
     const emailOptions = {
       from: process.env.EMAIL_FROM,
       to: [to],
       subject: subject,
     };
-
+    
+	//Now on to email content
+	
 	// Option 1: Use Billing Failure React Email template
 	if (useBillingFailure && name) {
       emailOptions.react = BillingFailure({
@@ -45,24 +61,7 @@ export async function POST(request) {
         actionUrl: 'https://example.com/dashboard',
       });
     // Option 2: Use Regular React Email template with attachment
-    } else if (useReactEmail && name && fileName) {
-      emailOptions.react = RegularEmail({
-        name,
-        orgname: process.env.ORG_NAME,
-        message,
-        linkText,
-        linkUrl,
-        buttonText,
-        buttonUrl,
-        attachments: [
-          {
-            filename: fileName,
-            content: fileContent,
-          },
-        ],
-      });
-    // Option 2b: Use Regular React Email template without attachment
-	 else if (useReactEmail && name) {
+    } else if (useReactEmail && name) {
       emailOptions.react = RegularEmail({
         name,
         orgname: process.env.ORG_NAME,
