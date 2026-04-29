@@ -20,7 +20,7 @@ import { resend } from '@/lib/resend';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, linkText, linkUrl, useReactEmail, useBillingFailure, preventThreading } =
+    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, linkText, linkUrl, fileContent, fileName, useReactEmail, useBillingFailure, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -44,8 +44,8 @@ export async function POST(request) {
         orgname: process.env.ORG_NAME,
         actionUrl: 'https://example.com/dashboard',
       });
-    // Option 2: Use Regular React Email template
-    } else if (useReactEmail && name) {
+    // Option 2: Use Regular React Email template with attachment
+    } else if (useReactEmail && name && fileName) {
       emailOptions.react = RegularEmail({
         name,
         orgname: process.env.ORG_NAME,
@@ -54,7 +54,24 @@ export async function POST(request) {
         linkUrl,
         buttonText,
         buttonUrl,
+        attachments: [
+          {
+            filename: fileName,
+            content: fileContent,
+          },
+        ],
       });
+    // Option 2b: Use Regular React Email template without attachment
+	 else if (useReactEmail && name) {
+      emailOptions.react = RegularEmail({
+        name,
+        orgname: process.env.ORG_NAME,
+        message,
+        linkText,
+        linkUrl,
+        buttonText,
+        buttonUrl,
+      });      
     } else if (message) {
       // Option 2: Use plain HTML
       emailOptions.html = `<p>${message}</p>`;

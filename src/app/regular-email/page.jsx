@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { ResultDisplay } from '@/components/result-display';
 
@@ -23,6 +23,21 @@ export default function RegularEmailPage() {
   const [buttonUrl, setButtonUrl] = useState(
 	'https://example.com/dashboard'
   );  
+
+ // This section gets file content into fileContent variable
+  let fileReader;	
+  const readFile = (e) => {
+	const fileContent = fileReader.result;
+	console.log(fileContent);
+	const base64Content = Buffer.from(fileContent).toString('base64');
+  };
+  const chooseFile = (file) => {
+	const fileName = file.name;
+	fileReader = new FileReader();
+	fileReader.onloadend = readFile;
+	fileReader.readAsText(file);
+  };
+
   
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -44,6 +59,8 @@ export default function RegularEmailPage() {
           message,
           linkText,
           linkUrl,
+          fileName,
+          fileContent: base64Content,
           buttonText,
           buttonUrl,
         }),
@@ -118,7 +135,7 @@ export default function RegularEmailPage() {
           />
         </div>
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium mb-1">
+          <label htmlFor="linkText" className="block text-sm font-medium mb-1">
             (Optional) Link
           </label>
           <input
@@ -141,7 +158,24 @@ export default function RegularEmailPage() {
           <p className="text-xs text-[var(--muted-foreground)] mt-1">
             Put the optional link's destination URL here.
           </p>                      
-        </div>              
+        </div>
+        
+		<div>
+			<label htmlFor="file" className="block text-sm font-medium mb-1">
+			  (Optional) File Attachment
+			</label>
+			<input
+			  id="file"
+			  type="file"
+			  className="input-file"
+			  accept=".txt"
+			  onChange={(e) => chooseFile(e.target.files[0])}
+			/>
+          <p className="text-xs text-[var(--muted-foreground)] mt-1">
+            Click above to attach a .txt file.
+          </p> 			
+		</div>
+                      
         <div>
           <label htmlFor="subject" className="block text-sm font-medium mb-1">
             Main Button
