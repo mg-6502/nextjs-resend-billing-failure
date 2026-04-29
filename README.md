@@ -133,7 +133,6 @@ const { data, error } = await resend.emails.send({
   html: '<p>${message}</p>',
 });
 ```
-This requires 
 
 ### Billing Failure Email
 Page source: `src/app/send-email/page.jsx`
