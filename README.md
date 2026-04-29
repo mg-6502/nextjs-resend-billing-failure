@@ -8,7 +8,9 @@ https://github.com/resend/resend-examples
 
 ## Features
 
-This project shrinks down the number of examples to focus on learning.
+This project shrinks down the number of examples to focus on learning. It also customizes
+and combines a number of components and provides some further explanations near the bottom
+of the Readme.
 
 As such there are 3 types of emails included:
 
@@ -88,7 +90,9 @@ src/
 - **Email**: Resend + React Email
 - **Styling**: Tailwind CSS 4
 
-## Further Explanations
+## How to use, and Further Explanations
+The short way to 
+
 Below are explanations of how the three types of emails work, in order of
 increasing complexity. Additionally you'll find notes further explaining the app
 architecture and where to make changes if desired.
@@ -100,12 +104,14 @@ Page source: `src/app/send-email/page.jsx`
 
 On this page you can quickly set To, Subject, and Message fields plus a quick send.
 Beneath is an example of the basic code example it uses to send, showing how
-the resend API can be passed data directly, including the primary html message.
+the resend API can be passed data , including a simple html message.
 
 The displayed example code changes dynamically based on what is typed into the form
 fields and environment variables set in `.env`
 
-This includes direct interaction with the Resend sending API.
+The code example indicates the simplest way to send email via the Resend sending API,
+but this page does its actual sending via a similar call within the Send Email API Route
+(to be discussed below).
 
 ### Billing Failure Email
 Page source: `src/app/send-email/page.jsx`
@@ -113,12 +119,12 @@ Template: `src/emails/billing-failure.jsx`
 
 The simpler form with only To and Recipient Name fields results in a more complex email.
 
-At first glance it looks similar to the Basic Send Email, but instead of doing its own
-sending it sends a POST action to the Send Email API Route within the app allowing for more
-complex sending handling. This will be addressed below after the emails.
+At first glance it looks similar to the Basic Send Email, but the resulting email indicates
+more. This email triggers the Send Email API Route to send a React email instead of simple
+HTML. More details below after the emails.
 
 Within the Send Email API Route is logic which detects if the Billing Failure Email is
-being sent and brings in the appropriate template.
+being sent and brings in the appropriate React Email template.
 
 ### Regular Email
 Page source: `src/app/regular-email/page.jsx`
@@ -129,19 +135,24 @@ Among many other fields it includes an optional attachment field for adding a .t
 This involves loading the file and converting it to base64 so it can be passed to the server
 from the initial client page.
 
-This email uses the same Send Email API Route as the Billing Failure Email, and the Route
-then pulls in the relevant template.
+This email also uses the Send Email API Route, and the Route
+then pulls in the relevant React Email template.
 
 ### Email API Route
 Source: `src/app/api/send/route.js`
 
+When any of the three email forms submits, they POST to this Route.
+
 This handles the more complex sending logic coming from either the Billing Failure Email
-or the Regular Email. When either of those forms submits, they POST to this Route.
+or the Regular Email. 
 
 The Route conditionally checks if an attachment is present for the send before defining
 emailOptions appropriately. It then proceeds to determine which email is being sent based
 on variables present, calls the appropriate template function, and then finally submits
-the complete email content to the Resend send API.
+the complete React Email content to the Resend send API.
+
+In the event it doesn't find evidence of either React Email, it falls back to the plain
+html email sending needed for the Basic Send Email.
 
 ## Resources
 
