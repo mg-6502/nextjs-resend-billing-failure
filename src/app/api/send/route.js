@@ -13,14 +13,14 @@
 
 import { randomUUID } from 'node:crypto';
 import { NextResponse } from 'next/server';
-import { WelcomeEmail } from '@/emails/welcome';
+import { RegularEmail } from '@/emails/regular-email';
 import { BillingFailure } from '@/emails/billing-failure';
 import { resend } from '@/lib/resend';
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, from, subject, message, orgname, useReactEmail, useBillingFailure, name, preventThreading } =
+    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, useReactEmail, useBillingFailure, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -44,11 +44,14 @@ export async function POST(request) {
         orgname: process.env.ORG_NAME,
         actionUrl: 'https://example.com/dashboard',
       });
-    // Original Option 1: Use React Email template
+    // Option 2: Use Regular React Email template
     } else if (useReactEmail && name) {
-      emailOptions.react = WelcomeEmail({
+      emailOptions.react = RegularEmail({
         name,
-        actionUrl: 'https://example.com/dashboard',
+        orgname: process.env.ORG_NAME,
+        message,
+        buttonText,
+        buttonUrl,
       });
     } else if (message) {
       // Option 2: Use plain HTML
