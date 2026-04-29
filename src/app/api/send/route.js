@@ -13,14 +13,14 @@
 
 import { randomUUID } from 'node:crypto';
 import { NextResponse } from 'next/server';
-import { WelcomeEmail } from '@/emails/welcome';
+import { RegularEmail } from '@/emails/regular-email';
 import { BillingFailure } from '@/emails/billing-failure';
 import { resend } from '@/lib/resend';
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, from, subject, message, orgname, useReactEmail, useBillingFailure, name, preventThreading } =
+    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, linkText, linkUrl, attachment, fileName, hasAttachment, useReactEmail, useBillingFailure, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -29,14 +29,27 @@ export async function POST(request) {
         { status: 400 },
       );
     }
-
-    // Build the email options
-    const emailOptions = {
-      from: process.env.EMAIL_FROM,
-      to: [to],
-      subject: subject,
-    };
-
+	// Defines email constants conditionally depending on whether email has attachment
+	const emailOptions = hasAttachment ?
+		{
+		  from: process.env.EMAIL_FROM,
+		  to: [to],
+		  subject: subject,
+		  attachments: [
+			  {
+				filename: fileName,
+				content: attachment,
+			  },
+			],
+		} :
+		{
+		  from: process.env.EMAIL_FROM,
+		  to: [to],
+		  subject: subject,
+		};
+	
+	
+	
 	// Option 1: Use Billing Failure React Email template
 	if (useBillingFailure && name) {
       emailOptions.react = BillingFailure({
@@ -44,12 +57,23 @@ export async function POST(request) {
         orgname: process.env.ORG_NAME,
         actionUrl: 'https://example.com/dashboard',
       });
-    // Original Option 1: Use React Email template
+    // Option 2: Use Regular React Email template with attachment
     } else if (useReactEmail && name) {
-      emailOptions.react = WelcomeEmail({
+      emailOptions.react = RegularEmail({
         name,
-        actionUrl: 'https://example.com/dashboard',
-      });
+        orgname: process.env.ORG_NAME,
+        message,
+        linkText,
+        linkUrl,
+        buttonText,
+        buttonUrl,
+        attachments: [
+        	{
+        	  filename: fileName,
+        	  content: attachment,
+        	}
+        ]
+      });      
     } else if (message) {
       // Option 2: Use plain HTML
       emailOptions.html = `<p>${message}</p>`;
