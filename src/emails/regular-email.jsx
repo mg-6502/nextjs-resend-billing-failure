@@ -28,6 +28,12 @@ export function RegularEmail({
   linkUrl,
   buttonText,
   buttonUrl,
+  attachments: [
+  	{
+  		filename: fileName,
+  		content: attachment,
+  	}
+  ]
 }) {
   return (
     <Html lang="en">

@@ -20,7 +20,7 @@ import { resend } from '@/lib/resend';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, linkText, linkUrl, attachment, fileName, useReactEmail, useBillingFailure, preventThreading } =
+    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, linkText, linkUrl, attachment, fileName, hasAttachment, useReactEmail, useBillingFailure, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -29,29 +29,26 @@ export async function POST(request) {
         { status: 400 },
       );
     }
-
-    // Build the email options
-    //Option A: Attachment is present, Else No attachment
-/*	if (attachment) {
-    const emailOptions = {
-      from: process.env.EMAIL_FROM,
-      to: [to],
-      subject: subject,
-      attachments: [
-          {
-            filename: 'attachment.txt',
-            content: attachment,
-          },
-        ],
-    };
-	} else {}*/
-    const emailOptions = {
-      from: process.env.EMAIL_FROM,
-      to: [to],
-      subject: subject,
-    };
-    
-	//Now on to email content
+	// Defines email constants conditionally depending on whether email has attachment
+	const emailOptions = hasAttachment ?
+		{
+		  from: process.env.EMAIL_FROM,
+		  to: [to],
+		  subject: subject,
+		  attachments: [
+			  {
+				filename: fileName,
+				content: attachment,
+			  },
+			],
+		} :
+		{
+		  from: process.env.EMAIL_FROM,
+		  to: [to],
+		  subject: subject,
+		};
+	
+	
 	
 	// Option 1: Use Billing Failure React Email template
 	if (useBillingFailure && name) {
@@ -70,6 +67,12 @@ export async function POST(request) {
         linkUrl,
         buttonText,
         buttonUrl,
+        attachments: [
+        	{
+        	  filename: fileName,
+        	  content: attachment,
+        	}
+        ]
       });      
     } else if (message) {
       // Option 2: Use plain HTML

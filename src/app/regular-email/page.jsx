@@ -25,17 +25,24 @@ export default function RegularEmailPage() {
   );  
 
  // This section gets file content into fileContent variable
-  let fileReader;	
-  const readFile = (e) => {
-	const fileContent = fileReader.result;
-	console.log(fileContent);
-	const attachment = Buffer.from(fileContent).toString('base64');
+ // Then converts to base64
+ // Also marks there is no attachment by default. Sets to true when added.
+ const [fileContent, setFileContent] = useState('');
+ const [fileName, setFileName] = useState('');
+ const [hasAttachment, setAttachment] = useState(false);
+ console.log(hasAttachment)
+ const b64Content = fileContent.split(',')[1];
+  let fileReader;
+  const handleFileRead = (e) => {
+    setFileContent(e.target.result.toString());
   };
-  const chooseFile = (file) => {
-	const fileName = file.name;
-	fileReader = new FileReader();
-	fileReader.onloadend = readFile;
-	fileReader.readAsText(file);
+  const handleFileChosen = (file) => {
+	setFileName(file.name);
+	setAttachment(true);
+	console.log(hasAttachment)
+    fileReader = new FileReader();
+    fileReader.onloadend = handleFileRead;
+    fileReader.readAsDataURL(file);
   };
 
   
@@ -59,6 +66,9 @@ export default function RegularEmailPage() {
           message,
           linkText,
           linkUrl,
+		  fileName,
+		  attachment: b64Content,
+		  hasAttachment,
           buttonText,
           buttonUrl,
         }),
@@ -167,7 +177,7 @@ export default function RegularEmailPage() {
 			  type="file"
 			  className="input-file"
 			  accept=".txt"
-			  onChange={(e) => chooseFile(e.target.files[0])}
+			  onChange={e => handleFileChosen(e.target.files[0])}
 			/>
           <p className="text-xs text-[var(--muted-foreground)] mt-1">
             Click above to attach a .txt file.
