@@ -91,13 +91,21 @@ src/
 - **Styling**: Tailwind CSS 4
 
 ## How to use, and Further Explanations
-The short way to 
+### Getting Started
+The quickest path to sending an email is to follow the instructions above to:
+	1. Install the application
+	2. Create your .env file and edit your .env variables
+	3. Run the Development Server
+	4. Open the localhost application instance in your web browser
+Then, to send your first test:
+	1. Go into the "Basic Send Email" and send your first test. 
 
-Below are explanations of how the three types of emails work, in order of
-increasing complexity. Additionally you'll find notes further explaining the app
-architecture and where to make changes if desired.
+In order to understand what's happening and send via code of your own, below are
+explanations of how the three types of emails work, in order of increasing complexity.
+Additionally you'll find notes further explaining the app architecture and where to
+make changes if desired.
 
-The main page is at `src/app/page.jsx`.
+The application's main page source is at `src/app/page.jsx`.
 
 ### Basic Send Email
 Page source: `src/app/send-email/page.jsx`
@@ -112,6 +120,17 @@ fields and environment variables set in `.env`
 The code example indicates the simplest way to send email via the Resend sending API,
 but this page does its actual sending via a similar call within the Send Email API Route
 (to be discussed below).
+
+For reference, an example of the aforementioned basic call to send is:
+```
+const { data, error } = await resend.emails.send({
+  from: from,
+  to: to,
+  subject: subject,
+  html: '<p>${message}</p>',
+}
+```
+The Resources links at the bottom of this readme are helpful for further elaboration.
 
 ### Billing Failure Email
 Page source: `src/app/send-email/page.jsx`
@@ -159,6 +178,7 @@ html email sending needed for the Basic Send Email.
 - [Resend Documentation](https://resend.com/docs)
 - [React Email Documentation](https://react.email)
 - [Next.js Documentation](https://nextjs.org/docs)
+- [Resend Next.js](https://resend.com/docs/send-with-nextjs)
 
 ## Contributing
 
