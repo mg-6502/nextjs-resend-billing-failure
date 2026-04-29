@@ -20,7 +20,7 @@ import { resend } from '@/lib/resend';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, useReactEmail, useBillingFailure, preventThreading } =
+    const { to, from, subject, name, message, orgname, buttonText, buttonUrl, linkText, linkUrl, useReactEmail, useBillingFailure, preventThreading } =
       body;
 
     if (!to || !subject) {
@@ -50,6 +50,8 @@ export async function POST(request) {
         name,
         orgname: process.env.ORG_NAME,
         message,
+        linkText,
+        linkUrl,
         buttonText,
         buttonUrl,
       });

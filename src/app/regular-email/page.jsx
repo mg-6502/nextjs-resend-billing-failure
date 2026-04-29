@@ -11,6 +11,12 @@ export default function RegularEmailPage() {
   const [message, setMessage] = useState(
 	'This is main body text for a regular email from the Resend examples app.'
   );
+  const [linkText, setLinkText] = useState(
+	'Click Here!'
+  );
+  const [linkUrl, setLinkUrl] = useState(
+	'https://example.com/dashboard'
+  );  
   const [buttonText, setButtonText] = useState(
 	'Click Here!'
   );
@@ -36,6 +42,8 @@ export default function RegularEmailPage() {
           useReactEmail: true,
           name,
           message,
+          linkText,
+          linkUrl,
           buttonText,
           buttonUrl,
         }),
@@ -71,19 +79,6 @@ export default function RegularEmailPage() {
           />
         </div>
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium mb-1">
-            Subject
-          </label>
-          <input
-            id="subject"
-            type="text"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
-          />
-        </div>
-        <div>
           <label htmlFor="name" className="block text-sm font-medium mb-1">
             Recipient Name
           </label>
@@ -92,6 +87,19 @@ export default function RegularEmailPage() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
+          />
+        </div>        
+        <div>
+          <label htmlFor="subject" className="block text-sm font-medium mb-1">
+            Subject
+          </label>
+          <input
+            id="subject"
+            type="text"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
             required
             className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
           />
@@ -109,6 +117,31 @@ export default function RegularEmailPage() {
             className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
           />
         </div>
+        <div>
+          <label htmlFor="subject" className="block text-sm font-medium mb-1">
+            (Optional) Link
+          </label>
+          <input
+            id="linkText"
+            type="text"
+            value={linkText}
+            onChange={(e) => setLinkText(e.target.value)}
+            className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
+          />
+          <p className="text-xs text-[var(--muted-foreground)] mt-1">
+            If you want, put text a supplemental link's text here.
+          </p>
+          <input
+            id="linkUrl"
+            type="url"
+            value={linkUrl}
+            onChange={(e) => setLinkUrl(e.target.value)}
+            className="w-full px-3 py-2 border border-[var(--border)] rounded-md bg-[var(--background)]"
+          />
+          <p className="text-xs text-[var(--muted-foreground)] mt-1">
+            Put the optional link's destination URL here.
+          </p>                      
+        </div>              
         <div>
           <label htmlFor="subject" className="block text-sm font-medium mb-1">
             Main Button
