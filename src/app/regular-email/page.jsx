@@ -174,11 +174,11 @@ export default function RegularEmailPage() {
 			  id="file"
 			  type="file"
 			  className="input-file"
-			  accept=".txt"
+			  accept=".txt, .text, .md, .markdown, application/pdf, image/jpeg, image/gif, image/heic"
 			  onChange={e => handleFileChosen(e.target.files[0])}
 			/>
           <p className="text-xs text-[var(--muted-foreground)] mt-1">
-            Click above to attach a .txt file.
+            Click above to attach a small text file, pdf, or image.
           </p> 			
 		</div>
                       
