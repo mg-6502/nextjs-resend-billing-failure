@@ -121,16 +121,19 @@ The code example indicates the simplest way to send email via the Resend sending
 but this page does its actual sending via a similar call within the Send Email API Route
 (to be discussed below).
 
-For reference, an example of the aforementioned basic call to send is:
+For reference, after you install/add the Resend Node.js SDK into your project
+basic example code to send is:
 ```
+import { Resend } from 'resend';
+const resend = new Resend(process.env.RESEND_API_KEY);
 const { data, error } = await resend.emails.send({
   from: from,
   to: to,
   subject: subject,
   html: '<p>${message}</p>',
-}
+});
 ```
-The Resources links at the bottom of this readme are helpful for further elaboration.
+This requires 
 
 ### Billing Failure Email
 Page source: `src/app/send-email/page.jsx`
