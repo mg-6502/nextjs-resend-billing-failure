@@ -3,7 +3,7 @@
  *
  * A React Email template for Billing Failure Notifications.
  *
- * @param {{ name: string, actionUrl?: string }} props
+ * @param {{ name: string, orgname: string, actionUrl?: string }} props
  */
 
 import {
@@ -73,6 +73,7 @@ export function BillingFailure({
 // Preview props for React Email dev server
 BillingFailure.PreviewProps = {
   name: 'John Doe',
+  orgname: 'Acme',
   actionUrl: 'https://example.com/dashboard',
 };
 

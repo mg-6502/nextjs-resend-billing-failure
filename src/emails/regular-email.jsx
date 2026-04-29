@@ -3,7 +3,7 @@
  *
  * A React Email template for welcoming new users.
  *
- * @param {{ name: string, actionUrl?: string }} props
+ * @param {{ name: string, orgname: string, message: string, buttonText: string, buttonURL: string }} props
  */
 
 import {
@@ -67,7 +67,10 @@ export function RegularEmail({
 // Preview props for React Email dev server
 RegularEmail.PreviewProps = {
   name: 'John Doe',
-  actionUrl: 'https://example.com/dashboard',
+  orgname: 'Acme',
+  message: 'Sample body message',
+  buttonText: 'Click Here',
+  buttonUrl: 'https://example.com/dashboard',
 };
 
 export default RegularEmail;
