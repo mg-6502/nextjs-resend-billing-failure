@@ -174,7 +174,7 @@ export default function RegularEmailPage() {
 			  id="file"
 			  type="file"
 			  className="input-file"
-			  accept=".txt, .text, .md, .markdown, application/pdf, image/jpeg, image/gif, image/heic"
+			  accept=".txt, .text, .md, .markdown, application/pdf, image/jpeg, image/gif, image/heic, html"
 			  onChange={e => handleFileChosen(e.target.files[0])}
 			/>
           <p className="text-xs text-[var(--muted-foreground)] mt-1">
