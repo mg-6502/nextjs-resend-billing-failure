@@ -12,17 +12,17 @@ const examples = [
         description: 'Send a simple email with HTML content',
         href: '/send-email',
         type: 'page',
-      },    
-      {
-        title: 'Regular Email',
-        description: 'Send a regular email with several components',
-        href: '/regular-email',
-        type: 'page',
       },
       {
         title: 'Billing Failure',
         description: 'Send a billing failure email to a customer',
         href: '/billing-failure',
+        type: 'page',
+      },          
+      {
+        title: 'Regular Email',
+        description: 'Send a regular email with several components',
+        href: '/regular-email',
         type: 'page',
       },
     ],

@@ -30,7 +30,6 @@ export default function RegularEmailPage() {
  const [fileContent, setFileContent] = useState('');
  const [fileName, setFileName] = useState('');
  const [hasAttachment, setAttachment] = useState(false);
- console.log(hasAttachment)
  const b64Content = fileContent.split(',')[1];
   let fileReader;
   const handleFileRead = (e) => {
@@ -39,7 +38,6 @@ export default function RegularEmailPage() {
   const handleFileChosen = (file) => {
 	setFileName(file.name);
 	setAttachment(true);
-	console.log(hasAttachment)
     fileReader = new FileReader();
     fileReader.onloadend = handleFileRead;
     fileReader.readAsDataURL(file);

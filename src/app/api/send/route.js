@@ -67,28 +67,15 @@ export async function POST(request) {
         linkUrl,
         buttonText,
         buttonUrl,
-        attachments: [
-        	{
-        	  filename: fileName,
-        	  content: attachment,
-        	}
-        ]
       });      
     } else if (message) {
-      // Option 2: Use plain HTML
+      // Option 3: Use plain HTML
       emailOptions.html = `<p>${message}</p>`;
     } else {
       return NextResponse.json(
         { error: 'Missing message content' },
         { status: 400 },
       );
-    }
-
-    // Option 3: Prevent Gmail threading
-    if (preventThreading) {
-      emailOptions.headers = {
-        'X-Entity-Ref-ID': randomUUID(),
-      };
     }
 
     const { data, error } = await resend.emails.send(emailOptions);
