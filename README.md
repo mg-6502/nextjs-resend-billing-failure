@@ -93,12 +93,12 @@ src/
 ## How to use, and Further Explanations
 ### Getting Started
 The quickest path to sending an email is to follow the instructions above to:
+
 	1. Install the application
 	2. Create your .env file and edit your .env variables
 	3. Run the Development Server
 	4. Open the localhost application instance in your web browser
-Then, to send your first test:
-	1. Go into the "Basic Send Email" and send your first test. 
+	5. To send your first test: Go into the "Basic Send Email" and submit. 
 
 In order to understand what's happening and send via code of your own, below are
 explanations of how the three types of emails work, in order of increasing complexity.
